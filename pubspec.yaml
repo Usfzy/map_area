@@ -1,0 +1,67 @@
+name: nirsalfo
+
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # display and cache images from API
+  cached_network_image: ^3.2.1
+  # display svg images
+  flutter_svg: ^1.1.6
+  # display maps in flutter
+  google_maps_flutter: ^2.0.0
+  # localization and internationalization
+  intl: ^0.17.0
+  # Geolocation plugin for Flutter. This plugin provides a cross-platform (iOS, Android) API for generic location (GPS etc.) functions.
+  geolocator: ^9.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Recommended lints for Flutter apps, packages, and plugins to encourage good coding practices.
+  flutter_lints: ^2.0.0
+
+####################################### REMOVE #############################################
+  # fvm flutter pub run flutter_native_splash:create
+  flutter_native_splash: ^2.2.0+1
+  # fvm flutter pub run change_app_package_name:main com.new.package.name
+  change_app_package_name: ^1.1.0
+
+# flutter splash screen
+flutter_native_splash:
+  color: "#009D44"
+  image: assets/images/img_logo.png
+#  branding: assets/images/img_logo.png
+  android_12:
+    image: assets/images/img_logo.png
+    icon_background_color: "#FFFFFF"
+
+  web: false
+####################################### REMOVE #############################################
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/InterSemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/InterRegular.ttf
+          weight: 400
+        - asset: assets/fonts/InterBold.ttf
+          weight: 700
+        - asset: assets/fonts/InterMedium.ttf
+          weight: 500
