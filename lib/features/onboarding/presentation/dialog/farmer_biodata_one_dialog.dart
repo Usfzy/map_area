@@ -57,10 +57,10 @@ class FarmerBiodataDialog extends StatelessWidget {
                   Expanded(
                     child: CustomButton(
                       height: getVerticalSize(44),
-                      text: 'Exit',
+                      text: 'View Profile',
                       margin: getMargin(left: 8),
                       onTap: () {
-                        onTapVewprofile(context, '');
+                        onTapVewprofile(context, '6462953135320568');
                       },
                     ),
                   )
@@ -78,9 +78,9 @@ class FarmerBiodataDialog extends StatelessWidget {
   }
 
   onTapVewprofile(BuildContext context, String farmerId) {
-    // if (farmerId.isEmpty) return;
+    if (farmerId.isEmpty) return;
 
-    // context.pushReplacementNamed(AppRoutes.farmerProfileScreen, arguments: farmerId);
-    context.pop();
+    context.pushReplacementNamed(AppRoutes.farmerProfileScreen, arguments: farmerId);
+    // context.pop();
   }
 }

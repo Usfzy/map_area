@@ -25,7 +25,7 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
   void initState() {
     super.initState();
 
-    _loadProfileData(context);
+    // _loadProfileData(context);
   }
 
   @override
@@ -106,7 +106,8 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
                       Padding(
                         padding: getPadding(top: 11),
                         child: Text(
-                          '${biodataModel?.data.firstName} ${biodataModel?.data.lastName} ${biodataModel?.data.otherName}',
+                          // '${biodataModel?.data.firstName} ${biodataModel?.data.lastName} ${biodataModel?.data.otherName}',
+                          'Ahmad Abiola Amaka',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterRegular14Gray900,
