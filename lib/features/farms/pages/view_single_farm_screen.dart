@@ -32,7 +32,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
             ),
           ),
           title: AppbarTitle(
-            text: "Single Farm Detail",
+            text: 'Single Farm Detail',
             margin: getMargin(
               left: 8,
             ),
@@ -64,7 +64,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "View Farm",
+                          'View Farm',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterSemiBold28,
@@ -74,7 +74,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                             top: 9,
                           ),
                           child: Text(
-                            "Ahmed Kunle Obiora",
+                            'Ahmed Kunle Obiora',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: AppStyle.txtInterRegular20,
@@ -108,7 +108,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 5,
                             ),
                             child: Text(
-                              "Farm Title",
+                              'Farm Title',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -119,7 +119,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              "Ahmed’s Yam Plantation",
+                              'Ahmed’s Yam Plantation',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -130,7 +130,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              "Farm Address",
+                              'Farm Address',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -141,7 +141,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 16,
                             ),
                             child: Text(
-                              "12 Ezekiel Street Ikeja",
+                              '12 Ezekiel Street Ikeja',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -152,7 +152,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 13,
                             ),
                             child: Text(
-                              "Land Size",
+                              'Land Size',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -163,7 +163,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              "4 Hectares ",
+                              '4 Hectares ',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -174,7 +174,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 14,
                             ),
                             child: Text(
-                              "Cultivated Area Size",
+                              'Cultivated Area Size',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -185,7 +185,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              "3.5 Hectares ",
+                              '3.5 Hectares ',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -196,7 +196,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 6,
                             ),
                             child: Text(
-                              "Plantation",
+                              'Plantation',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -207,7 +207,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              "Yam Tubers",
+                              'Yam Tubers',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -218,7 +218,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 8,
                             ),
                             child: Text(
-                              "Land Ownership",
+                              'Land Ownership',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -229,7 +229,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 13,
                             ),
                             child: Text(
-                              "Lease",
+                              'Lease',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -240,7 +240,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 8,
                             ),
                             child: Text(
-                              "Mapping Data",
+                              'Mapping Data',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterSemiBold14,
@@ -255,7 +255,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               right: 30,
                             ),
                             child: Text(
-                              "Point 1: Lat 37.7750° N, Lon 122.4200° W\nPoint 2: Lat 37.7750° N, Lon 122.4180° W\nPoint 3: Lat 37.7735° N, Lon 122.4180° W\nPoint 4: Lat 37.7735° N, Lon 122.4200° W",
+                              'Point 1: Lat 37.7750° N, Lon 122.4200° W\nPoint 2: Lat 37.7750° N, Lon 122.4180° W\nPoint 3: Lat 37.7735° N, Lon 122.4180° W\nPoint 4: Lat 37.7735° N, Lon 122.4200° W',
                               maxLines: null,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -265,7 +265,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                             height: getVerticalSize(
                               44,
                             ),
-                            text: "View Farm Map",
+                            text: 'View Farm Map',
                             margin: getMargin(
                               top: 7,
                             ),
@@ -283,7 +283,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                     height: getVerticalSize(
                       44,
                     ),
-                    text: "Edit Farm",
+                    text: 'Edit Farm',
                     margin: getMargin(
                       top: 12,
                     ),
@@ -294,7 +294,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                     height: getVerticalSize(
                       44,
                     ),
-                    text: "Delete Farm",
+                    text: 'Delete Farm',
                     margin: getMargin(
                       top: 12,
                     ),

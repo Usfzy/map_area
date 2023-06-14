@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nirsalfo/core/app_export.dart';
 
-// ignore: must_be_immutable
 class AppbarImage extends StatelessWidget {
-  AppbarImage({
+  const AppbarImage({
     required this.height,
     required this.width,
     this.imagePath,
@@ -12,17 +11,17 @@ class AppbarImage extends StatelessWidget {
     this.onTap,
   });
 
-  double height;
+  final double height;
 
-  double width;
+  final double width;
 
-  String? imagePath;
+  final String? imagePath;
 
-  String? svgPath;
+  final String? svgPath;
 
-  EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? margin;
 
-  Function? onTap;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {

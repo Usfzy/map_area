@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:nirsalfo/core/app_export.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton(
-      {this.padding,
-      this.variant,
-      this.fontStyle,
-      this.alignment,
-      this.margin,
-      this.onTap,
-      this.width,
-      this.height,
-      this.text,
-      this.prefixWidget,
-      this.suffixWidget});
+  CustomButton({
+    this.padding,
+    this.variant,
+    this.fontStyle,
+    this.alignment,
+    this.margin,
+    this.onTap,
+    this.width,
+    this.height,
+    this.text,
+    this.prefixWidget,
+    this.suffixWidget,
+  });
 
   final ButtonPadding? padding;
 
@@ -65,7 +66,7 @@ class CustomButton extends StatelessWidget {
         children: [
           prefixWidget ?? SizedBox(),
           Text(
-            text ?? "",
+            text ?? '',
             textAlign: TextAlign.center,
             style: _setFontStyle(),
           ),
@@ -74,7 +75,7 @@ class CustomButton extends StatelessWidget {
       );
     } else {
       return Text(
-        text ?? "",
+        text ?? '',
         textAlign: TextAlign.center,
         style: _setFontStyle(),
       );

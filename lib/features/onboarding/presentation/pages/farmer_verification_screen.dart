@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nirsalfo/core/app_export.dart';
+import 'package:nirsalfo/features/onboarding/controller/farmer_verification_controller.dart';
+import 'package:nirsalfo/features/onboarding/data/model/verify_model.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_image.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_title.dart';
 import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
 import 'package:nirsalfo/widgets/custom_button.dart';
 import 'package:nirsalfo/widgets/custom_drop_down.dart';
+import 'package:nirsalfo/widgets/custom_progress_indicator.dart';
 import 'package:nirsalfo/widgets/custom_text_form_field.dart';
 
+import '../../../../core/utils/utils.dart';
 import '../dialog/farmer_verification_one_dialog.dart';
 
 class FarmerVerificationScreen extends StatelessWidget {
   final List<String> dropdownItemList = [
-    "Item One",
-    "Item Two",
-    "Item Three",
+    'Item One',
+    'Item Two',
+    'Item Three',
   ];
 
-  final idnumberplacehoController = TextEditingController();
+  final identityNumberController =
+      TextEditingController(text: '6462953135320568');
   final _formKey = GlobalKey<FormState>();
+
+  String identityType = 'BVN';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +53,7 @@ class FarmerVerificationScreen extends StatelessWidget {
             ),
           ),
           title: AppbarTitle(
-            text: "Farmer Onboarding",
+            text: 'Farmer Onboarding',
             margin: getMargin(
               left: 8,
             ),
@@ -78,7 +86,7 @@ class FarmerVerificationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Step 1",
+                          'Step 1',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterSemiBold28,
@@ -88,7 +96,7 @@ class FarmerVerificationScreen extends StatelessWidget {
                             top: 8,
                           ),
                           child: Text(
-                            "Identity Verification",
+                            'Identity Verification',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: AppStyle.txtInterRegular20,
@@ -102,7 +110,7 @@ class FarmerVerificationScreen extends StatelessWidget {
                       top: 58,
                     ),
                     child: Text(
-                      "Verify farmer identity to proceed",
+                      'Verify farmer identity to proceed',
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtInterMedium20,
@@ -117,7 +125,7 @@ class FarmerVerificationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Select Identity Type *",
+                          'Select Identity Type *',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterRegular14,
@@ -134,12 +142,14 @@ class FarmerVerificationScreen extends StatelessWidget {
                               svgPath: ImageConstant.imgArrowdown,
                             ),
                           ),
-                          hintText: "BVN",
+                          hintText: 'BVN',
                           margin: getMargin(
                             top: 9,
                           ),
                           items: dropdownItemList,
-                          onChanged: (value) {},
+                          onChanged: (String value) {
+                            identityType = value;
+                          },
                         ),
                       ],
                     ),
@@ -153,7 +163,7 @@ class FarmerVerificationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Enter Farmer’s ID Number *",
+                          'Enter Farmer’s ID Number *',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterRegular14,
@@ -161,8 +171,8 @@ class FarmerVerificationScreen extends StatelessWidget {
                         CustomTextFormField(
                           focusNode: FocusNode(),
                           autofocus: true,
-                          controller: idnumberplacehoController,
-                          hintText: "ID Number",
+                          controller: identityNumberController,
+                          hintText: 'ID Number',
                           margin: getMargin(
                             top: 10,
                           ),
@@ -172,16 +182,29 @@ class FarmerVerificationScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  CustomButton(
-                    height: getVerticalSize(
-                      44,
-                    ),
-                    text: "Verify Identity",
-                    margin: getMargin(
-                      top: 20,
-                    ),
-                    onTap: () {
-                      showFarmerVerificationOneDialog(context);
+                  vSpace(16.0),
+                  Consumer(
+                    builder: (_, WidgetRef ref, __) {
+                      final result =
+                          ref.watch(farmerVerificationControllerProvider);
+
+                      return result.when(
+                        data: (data) {
+                          if (data != null) {
+                            _showFarmerVerificationOneDialog(context, data);
+                          }
+
+                          return _verfiyIdentityButton(ref);
+                        },
+                        error: (error, stackTrace) {
+                          showCustomSnackBarAfterFrame(
+                              context, 'Error getting data',
+                              isError: true);
+
+                          return _verfiyIdentityButton(ref);
+                        },
+                        loading: () => CustomProgressIndicator(),
+                      );
                     },
                   ),
                 ],
@@ -191,5 +214,34 @@ class FarmerVerificationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _verfiyIdentityButton(WidgetRef ref) {
+    return CustomButton(
+      height: getVerticalSize(
+        44,
+      ),
+      text: 'Verify Identity',
+      onTap: () => _onVerifyIdentityTap(ref),
+    );
+  }
+
+  void _onVerifyIdentityTap(WidgetRef ref) {
+    if (!_formKey.currentState!.validate()) return;
+
+    final identityNumber = identityNumberController.text;
+    ref.read(farmerVerificationControllerProvider.notifier).verifyFarmer(
+          identityNumber,
+          identityType,
+        );
+  }
+
+  void _showFarmerVerificationOneDialog(
+    BuildContext context,
+    VerifyModel verifyModel,
+  ) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showFarmerVerificationOneDialog(context, verifyModel);
+    });
   }
 }

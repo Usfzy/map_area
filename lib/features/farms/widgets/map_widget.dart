@@ -65,7 +65,7 @@ class _MapWidgetState extends State<MapWidget> {
           ),
           CustomButton(
             height: getVerticalSize(44),
-            text: "Reset ",
+            text: 'Reset ',
             margin: getMargin(top: 19),
             variant: ButtonVariant.tertiary,
             fontStyle: ButtonFontStyle.interRegular14,
@@ -73,7 +73,7 @@ class _MapWidgetState extends State<MapWidget> {
           ),
           CustomButton(
             height: getVerticalSize(44),
-            text: "Save",
+            text: 'Save',
             margin: getMargin(top: 16),
             onTap: _onSaveTap,
           ),

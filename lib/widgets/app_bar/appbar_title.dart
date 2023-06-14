@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:nirsalfo/core/app_export.dart';
 
-// ignore: must_be_immutable
 class AppbarTitle extends StatelessWidget {
-  AppbarTitle({
+  const AppbarTitle({
     required this.text,
     this.margin,
     this.onTap,
   });
 
-  String text;
+  final String text;
 
-  EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? margin;
 
-  Function? onTap;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {

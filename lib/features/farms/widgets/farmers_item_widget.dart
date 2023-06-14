@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:nirsalfo/core/app_export.dart';
+import 'package:nirsalfo/features/farms/data/model/farmer_model.dart';
 
 // ignore: must_be_immutable
 class FarmersItemWidget extends StatelessWidget {
-  FarmersItemWidget({this.onTapColumnprofilepi});
+  final FarmerDatum farmerModel;
+  final VoidCallback onTapColumnprofilepi;
 
-  VoidCallback? onTapColumnprofilepi;
+  FarmersItemWidget({required this.farmerModel, required this.onTapColumnprofilepi});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTapColumnprofilepi?.call();
+        onTapColumnprofilepi.call();
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CustomImageView(
-            imagePath: ImageConstant.imgProfilepix269x324,
+            url: farmerModel.photo,
             height: getVerticalSize(
               269,
             ),
@@ -30,7 +32,7 @@ class FarmersItemWidget extends StatelessWidget {
               top: 13,
             ),
             child: Text(
-              "Ahmed Kunle Obiora",
+              '${farmerModel.firstName} ${farmerModel.lastName} ${farmerModel.otherName}',
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
               style: AppStyle.txtInterMedium14,
@@ -44,13 +46,13 @@ class FarmersItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Plateau",
+                  farmerModel.location,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyle.txtInterRegular14Gray900,
                 ),
                 Text(
-                  "2 Farms",
+                  '${farmerModel.farms} Farms',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyle.txtInterRegular14Gray900,

@@ -21,15 +21,17 @@ class ViewFarmsMapScreen extends StatelessWidget {
         backgroundColor: ColorConstant.whiteA700,
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
-            height: getVerticalSize(44),
-            leadingWidth: 45,
-            leading: AppbarImage(
-                height: getSize(24),
-                width: getSize(24),
-                svgPath: ImageConstant.imgArrowback,
-                margin: getMargin(left: 21, top: 9, bottom: 10)),
-            title: AppbarTitle(text: "View Farms", margin: getMargin(left: 8)),
-            styleType: Style.bgFillGreenA700),
+          height: getVerticalSize(44),
+          leadingWidth: 45,
+          leading: AppbarImage(
+            height: getSize(24),
+            width: getSize(24),
+            svgPath: ImageConstant.imgArrowback,
+            margin: getMargin(left: 21, top: 9, bottom: 10),
+          ),
+          title: AppbarTitle(text: 'View Farms', margin: getMargin(left: 8)),
+          styleType: Style.bgFillGreenA700,
+        ),
         body: SingleChildScrollView(
           padding: getPadding(top: 37),
           child: Padding(
@@ -42,16 +44,21 @@ class ViewFarmsMapScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("View Farms",
+                    Text(
+                      'View Farms',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: AppStyle.txtInterSemiBold28,
+                    ),
+                    Padding(
+                      padding: getPadding(top: 9),
+                      child: Text(
+                        'Ahmed Kunle Obiora',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
-                        style: AppStyle.txtInterSemiBold28),
-                    Padding(
-                        padding: getPadding(top: 9),
-                        child: Text("Ahmed Kunle Obiora",
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtInterRegular20))
+                        style: AppStyle.txtInterRegular20,
+                      ),
+                    )
                   ],
                 ),
                 Padding(
@@ -60,32 +67,41 @@ class ViewFarmsMapScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Farm Address",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtInterRegular14),
+                      Text(
+                        'Farm Address',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtInterRegular14,
+                      ),
                       CustomTextFormField(
-                          autofocus: false,
-                          controller: farmAddressoneController,
-                          hintText: "12 Ezekiel Street, Ikeja",
-                          margin: getMargin(top: 10),
-                          textInputAction: TextInputAction.done)
+                        autofocus: false,
+                        controller: farmAddressoneController,
+                        hintText: '12 Ezekiel Street, Ikeja',
+                        margin: getMargin(top: 10),
+                        textInputAction: TextInputAction.done,
+                      )
                     ],
                   ),
                 ),
                 MapWidget(),
                 Padding(
-                    padding: getPadding(top: 30),
-                    child: Text("Area",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtInterMedium14)),
+                  padding: getPadding(top: 30),
+                  child: Text(
+                    'Area',
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: AppStyle.txtInterMedium14,
+                  ),
+                ),
                 Padding(
-                    padding: getPadding(top: 11),
-                    child: Text("400m2",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtInterRegular14Gray900))
+                  padding: getPadding(top: 11),
+                  child: Text(
+                    '400m2',
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: AppStyle.txtInterRegular14Gray900,
+                  ),
+                )
               ],
             ),
           ),

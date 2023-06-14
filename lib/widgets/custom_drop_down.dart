@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:nirsalfo/core/app_export.dart';
 
 class CustomDropDown extends StatelessWidget {
-  CustomDropDown(
-      {this.padding,
-      this.variant,
-      this.fontStyle,
-      this.alignment,
-      this.width,
-      this.margin,
-      this.focusNode,
-      this.autofocus = false,
-      this.icon,
-      this.hintText,
-      this.prefix,
-      this.prefixConstraints,
-      this.items,
-      this.onChanged,
-      this.validator});
+  CustomDropDown({
+    this.padding,
+    this.variant,
+    this.fontStyle,
+    this.alignment,
+    this.width,
+    this.margin,
+    this.focusNode,
+    this.autofocus = false,
+    this.icon,
+    this.hintText,
+    this.prefix,
+    this.prefixConstraints,
+    this.items,
+    this.onChanged,
+    this.validator,
+  });
 
   final DropDownPadding? padding;
 
@@ -88,7 +89,7 @@ class CustomDropDown extends StatelessWidget {
 
   _buildDecoration() {
     return InputDecoration(
-      hintText: hintText ?? "",
+      hintText: hintText ?? '',
       hintStyle: _setFontStyle(),
       border: _setBorderStyle(),
       enabledBorder: _setBorderStyle(),
