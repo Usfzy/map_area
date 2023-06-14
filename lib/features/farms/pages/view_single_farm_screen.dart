@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nirsalfo/core/app_export.dart';
 import 'package:nirsalfo/core/utils/extensions.dart';
+import 'package:nirsalfo/core/utils/utils.dart';
+import 'package:nirsalfo/features/farms/data/model/farm_details_model.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_image.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_title.dart';
 import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
@@ -9,6 +11,11 @@ import 'package:nirsalfo/widgets/custom_button.dart';
 class ViewSingleFarmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final Farm farm = arguments['farm'] as Farm;
+    final String farmerName = arguments['farmer_name'] as String;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
@@ -74,7 +81,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                             top: 9,
                           ),
                           child: Text(
-                            'Ahmed Kunle Obiora',
+                            farmerName,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: AppStyle.txtInterRegular20,
@@ -119,7 +126,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              'Ahmed’s Yam Plantation',
+                              farm.farmTitle,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -141,7 +148,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 16,
                             ),
                             child: Text(
-                              '12 Ezekiel Street Ikeja',
+                              farm.farmAddress,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -163,7 +170,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              '4 Hectares ',
+                              '${farm.farmLandSize} ${farm.farmMeasurementType}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -185,7 +192,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              '3.5 Hectares ',
+                              '${farm.cultivatedAreaSize} ${farm.cultivatedAreaMeasurementType}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -207,7 +214,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              'Yam Tubers',
+                              farm.plantation,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -229,7 +236,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 13,
                             ),
                             child: Text(
-                              'Lease',
+                              farm.landOwnership,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -246,21 +253,20 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               style: AppStyle.txtInterSemiBold14,
                             ),
                           ),
-                          Container(
-                            width: getHorizontalSize(
-                              275,
-                            ),
-                            margin: getMargin(
-                              top: 13,
-                              right: 30,
-                            ),
-                            child: Text(
-                              'Point 1: Lat 37.7750° N, Lon 122.4200° W\nPoint 2: Lat 37.7750° N, Lon 122.4180° W\nPoint 3: Lat 37.7735° N, Lon 122.4180° W\nPoint 4: Lat 37.7735° N, Lon 122.4200° W',
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtInterRegular14Black90001,
-                            ),
+                          vSpace(16),
+                          Column(
+                            children: [
+                              ...farm.map.map(
+                                (e) => Text(
+                                  'Point Lat ${e.lat}° Lon ${e.long}° W',
+                                  maxLines: null,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtInterRegular14Black90001,
+                                ),
+                              ),
+                            ],
                           ),
+                          vSpace(),
                           CustomButton(
                             height: getVerticalSize(
                               44,
