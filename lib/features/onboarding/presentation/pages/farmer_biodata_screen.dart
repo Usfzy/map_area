@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nirsalfo/core/app_export.dart';
+import 'package:nirsalfo/core/model/general_resp_model.dart';
+import 'package:nirsalfo/features/farms/data/model/register_farmer_model.dart';
 import 'package:nirsalfo/features/onboarding/controller/upload_image_controller.dart';
 import 'package:nirsalfo/features/onboarding/data/model/verify_model.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_image.dart';
@@ -28,15 +30,11 @@ class FarmerBiodataScreen extends ConsumerStatefulWidget {
 
 class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
-
   final TextEditingController emailAddressController = TextEditingController();
-
   final TextEditingController addressController = TextEditingController();
-
   final TextEditingController lgaController = TextEditingController();
 
-  final List<String> dropdownItemList = ['Item One', 'Item Two', 'Item Three'];
-
+  final List<String> dropdownGenders = ['Male', 'Female', 'Other'];
   final List<String> dropdownItemList1 = ['Item One', 'Item Two', 'Item Three'];
 
   String state = '';
@@ -45,7 +43,11 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final verifyModel = ModalRoute.of(context)?.settings.arguments as VerifyModel;
+    final Map<String, dynamic> result = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+
+    final VerifyModel verifyModel = result['verify_model'];
+    final String idNumber = result['id_number'];
+    final String idType = result['id_type'];
 
     return SafeArea(
       child: Scaffold(
@@ -106,13 +108,21 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
                       final state = ref.watch(uploadImageControllerProvider);
 
                       return state.when(
-                        data: (data) => CustomImageView(
-                          imagePath: ImageConstant.imgProfilepix,
-                          //  url: ${verifyModel.data.photo},
-                          height: getVerticalSize(250),
-                          width: getHorizontalSize(336),
-                          margin: getMargin(top: 19),
-                        ),
+                        data: (data) {
+                          if (data != null) {
+                            showCustomSnackBarAfterFrame(
+                              context,
+                              data.data == null ? 'Error uploading file' : 'Image uploaded successfully',
+                            );
+                          }
+
+                          return CustomImageView(
+                            url: data.data,
+                            height: getVerticalSize(250),
+                            width: getHorizontalSize(336),
+                            margin: getMargin(top: 19),
+                          );
+                        },
                         error: (error, stackTrace) => CustomErrorWidget(error: error.toString()),
                         loading: () => CustomProgressIndicator(),
                       );
@@ -266,7 +276,7 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
                           ),
                           hintText: 'Select Option',
                           margin: getMargin(top: 10),
-                          items: dropdownItemList,
+                          items: dropdownGenders,
                           onChanged: (value) {
                             gender = value;
                           },
@@ -361,15 +371,15 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
                       return result.when(
                         data: (data) {
                           if (data != null) {
-                            _showFarmerBiodataDialog(context);
+                            RegisterFarmerModel farmerModel = data;
+                            _showFarmerBiodataDialog(context, farmerModel.registerFarmer);
                           }
-
-                          return _saveInformationButton(ref);
+                          return _saveInformationButton(ref, idType, idNumber);
                         },
                         error: (error, stackTrace) {
                           showCustomSnackBarAfterFrame(context, error.toString(), isError: true);
 
-                          return _saveInformationButton(ref);
+                          return _saveInformationButton(ref, idType, idNumber);
                         },
                         loading: () => CustomProgressIndicator(),
                       );
@@ -384,20 +394,20 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
     );
   }
 
-  Widget _saveInformationButton(WidgetRef ref) {
+  Widget _saveInformationButton(WidgetRef ref, String idType, String idNUmber) {
     return CustomButton(
       height: getVerticalSize(44),
       text: 'Save Information',
-      onTap: () => _onSaveInformationTap(ref),
+      onTap: () => _onSaveInformationTap(ref, idType, idNUmber),
     );
   }
 
-  void _onSaveInformationTap(WidgetRef ref) {
+  void _onSaveInformationTap(WidgetRef ref, String idType, String idNumber) {
     ref.read(farmerRegistrationControllerProvider.notifier).registerFarmer({
       'photo':
           'https://uatdrive.s3.us-west-002.backblazeb2.com/african-american-agriculturist-holds-corncob-standing-farm-field_255755-8406.avif',
-      'id_type': 'BVN',
-      'id_number': '6462953135320568',
+      'id_type': idType,
+      'id_number': idNumber,
       'primary_phone_number': phoneNumberController.text.trim(),
       'other_phone_number': phoneNumberController.text.trim(),
       'email': emailAddressController.text.trim(),
@@ -419,9 +429,9 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
     }
   }
 
-  void _showFarmerBiodataDialog(BuildContext context) {
+  void _showFarmerBiodataDialog(BuildContext context, RegisterFarmer farmerModel) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      showFarmerBiodataDialog(context);
+      showFarmerBiodataDialog(context, farmerModel);
     });
   }
 }

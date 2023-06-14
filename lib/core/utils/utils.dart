@@ -24,6 +24,6 @@ String parseError(e) {
 
     return message;
   } catch (e) {
-    return e.toString();
+    return 'Server Failure';
   }
 }

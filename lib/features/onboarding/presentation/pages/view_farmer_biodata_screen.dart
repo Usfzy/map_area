@@ -66,12 +66,12 @@ class _ViewFarmerBiodataScreenState extends ConsumerState<ViewFarmerBiodataScree
           styleType: Style.bgFillGreenA700,
         ),
         body: Consumer(
-          builder: (context, ref, child) {
+          builder: (_, WidgetRef ref, __) {
             final state = ref.watch(farmerBiodataControllerProvider);
 
             return state.when(
-              data: (data) {
-                final BiodataModel? biodataModel = data;
+              data: (biodataModel) {
+                if (biodataModel == null) return SizedBox.shrink();
 
                 return Form(
                   key: _formKey,
@@ -389,7 +389,7 @@ class _ViewFarmerBiodataScreenState extends ConsumerState<ViewFarmerBiodataScree
 
   onTapEditbiodata(BuildContext context, String farmerId) {
     if (farmerId.isEmpty) return;
-    
+
     context.pushNamed(AppRoutes.farmerProfileScreen, arguments: farmerId);
   }
 }

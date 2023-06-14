@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nirsalfo/core/model/general_resp_model.dart';
+import 'package:nirsalfo/features/farms/data/model/register_farmer_model.dart';
 import 'package:nirsalfo/features/farms/services/farm_service.dart';
 import 'package:nirsalfo/features/onboarding/data/model/biodata_model.dart';
 import 'package:nirsalfo/features/onboarding/data/model/verify_model.dart';
@@ -24,7 +25,7 @@ class OnboardingRepository {
     throw ServerException(message: response.error);
   }
 
-  Future<GeneralResponseModel> registerFarmer(Map<String, dynamic> body) async {
+  Future<RegisterFarmerModel> registerFarmer(Map<String, dynamic> body) async {
     final response = await farmService.registerFarmer(body);
     if (response.isSuccessful) return response.body!;
 

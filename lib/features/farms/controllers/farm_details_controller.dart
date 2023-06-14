@@ -3,22 +3,22 @@ import 'package:nirsalfo/features/farms/data/repository/farm_repository.dart';
 
 import '../../../core/utils/utils.dart';
 
-final farmersListControllerProvider = StateNotifierProvider<FarmersListController, AsyncValue>(
-  (ref) => FarmersListController(
+final farmListControllerProvider = StateNotifierProvider<FarmListController,AsyncValue>(
+  (ref) => FarmListController(
     farmerRepository: ref.read(farmRepositoryProvider),
   ),
 );
 
-class FarmersListController extends StateNotifier<AsyncValue> {
+class FarmListController extends StateNotifier<AsyncValue> {
   final FarmRepository farmerRepository;
 
-  FarmersListController({required this.farmerRepository}) : super(AsyncData(null));
+  FarmListController({required this.farmerRepository}) : super(AsyncData(null));
 
-  Future<void> getFarmersList() async {
-    state = AsyncLoading();
+  Future<void> getFarmDetails(String farmId) async {
+    state = AsyncValue.loading();
 
     try {
-      final result = await farmerRepository.getFarmersList();
+      final result = await farmerRepository.getFarmDetails(farmId);
 
       state = AsyncValue.data(result);
     } catch (e) {

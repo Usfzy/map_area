@@ -2,6 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nirsalfo/core/model/general_resp_model.dart';
 import 'package:nirsalfo/features/farms/data/model/farmer_model.dart';
+import 'package:nirsalfo/features/farms/data/model/register_farmer_model.dart';
 import 'package:nirsalfo/features/onboarding/data/model/biodata_model.dart';
 import 'package:nirsalfo/features/onboarding/data/model/verify_model.dart';
 
@@ -24,7 +25,7 @@ abstract class FarmService extends ChopperService {
   Future<Response<VerifyModel>> verifyFarmer(@Body() Map<String, dynamic> body);
 
   @Post(path: '/farmers/register')
-  Future<Response<GeneralResponseModel>> registerFarmer(
+  Future<Response<RegisterFarmerModel>> registerFarmer(
     @Body() Map<String, dynamic> body,
   );
 
@@ -34,6 +35,6 @@ abstract class FarmService extends ChopperService {
   @Get(path: '/farmers/')
   Future<Response<FarmerModel>> getFarmersList();
 
-  @Get(path: '/farm/{farmId}')
-  Future<Response<FarmDetailsModel>> getFarmDetails(String farmId);
+  @Get(path: '/farm/{farmerId}')
+  Future<Response<FarmDetailsModel>> getFarmDetails(@Path() String farmerId);
 }

@@ -3,11 +3,13 @@ import 'package:nirsalfo/core/app_export.dart';
 import 'package:nirsalfo/core/utils/extensions.dart';
 import 'package:nirsalfo/widgets/custom_button.dart';
 
-Future<void> showFarmerBiodataDialog(BuildContext context) {
+import '../../../farms/data/model/register_farmer_model.dart';
+
+Future<void> showFarmerBiodataDialog(BuildContext context, RegisterFarmer farmerModel) {
   return showDialog(
     context: context,
     builder: (_) => AlertDialog(
-      content: FarmerBiodataDialog(),
+      content: FarmerBiodataDialog(farmerModel),
       backgroundColor: Colors.transparent,
       contentPadding: EdgeInsets.zero,
       insetPadding: EdgeInsets.only(left: 0),
@@ -16,6 +18,10 @@ Future<void> showFarmerBiodataDialog(BuildContext context) {
 }
 
 class FarmerBiodataDialog extends StatelessWidget {
+  final RegisterFarmer farmerModel;
+
+  const FarmerBiodataDialog(this.farmerModel);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -30,7 +36,7 @@ class FarmerBiodataDialog extends StatelessWidget {
             Padding(
               padding: getPadding(top: 1),
               child: Text(
-                'Ahmed Kunle Obiora Has been Onboarded. ',
+                '${farmerModel.firstName} ${farmerModel.lastName} ${farmerModel.otherName} Has been Onboarded. ',
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 style: AppStyle.txtInterRegular14Gray900,
@@ -60,7 +66,7 @@ class FarmerBiodataDialog extends StatelessWidget {
                       text: 'View Profile',
                       margin: getMargin(left: 8),
                       onTap: () {
-                        onTapVewprofile(context, '6462953135320568');
+                        onTapVewprofile(context, farmerModel.id);
                       },
                     ),
                   )

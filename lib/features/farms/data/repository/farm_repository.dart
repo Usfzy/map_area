@@ -5,16 +5,16 @@ import 'package:nirsalfo/features/farms/services/farm_service.dart';
 import '../../../../core/error/exception.dart';
 import '../model/farm_details_model.dart';
 
-final farmerRepositoryProvider = Provider(
-  (ref) => FarmerRepository(
+final farmRepositoryProvider = Provider(
+  (ref) => FarmRepository(
     farmService: ref.read(farmServiceProvider),
   ),
 );
 
-class FarmerRepository {
+class FarmRepository {
   final FarmService farmService;
 
-  const FarmerRepository({required this.farmService});
+  const FarmRepository({required this.farmService});
 
   Future<FarmerModel> getFarmersList() async {
     final response = await farmService.getFarmersList();

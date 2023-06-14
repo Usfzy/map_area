@@ -7,6 +7,7 @@ import 'package:nirsalfo/features/onboarding/data/model/verify_model.dart';
 
 import '../../features/farms/data/model/farm_details_model.dart';
 import '../../features/farms/data/model/farmer_model.dart';
+import '../../features/farms/data/model/register_farmer_model.dart';
 import '../../features/farms/services/farm_service.dart';
 import '../../features/onboarding/data/model/biodata_model.dart';
 import '../constants/constants.dart';
@@ -23,6 +24,7 @@ final chopperClient = ChopperClient(
       BiodataModel: (json) => BiodataModel.fromJson(json),
       FarmerModel: (json) => FarmerModel.fromJson(json),
       FarmDetailsModel: (json) => FarmDetailsModel.fromJson(json),
+      RegisterFarmerModel: (json) => RegisterFarmerModel.fromJson(json),
     },
   ),
   interceptors: [

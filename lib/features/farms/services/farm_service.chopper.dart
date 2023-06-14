@@ -30,7 +30,7 @@ class _$FarmService extends FarmService {
   }
 
   @override
-  Future<Response<GeneralResponseModel>> registerFarmer(
+  Future<Response<RegisterFarmerModel>> registerFarmer(
       Map<String, dynamic> body) {
     final Uri $url = Uri.parse('/farmers/register');
     final $body = body;
@@ -40,7 +40,7 @@ class _$FarmService extends FarmService {
       client.baseUrl,
       body: $body,
     );
-    return client.send<GeneralResponseModel, GeneralResponseModel>($request);
+    return client.send<RegisterFarmerModel, RegisterFarmerModel>($request);
   }
 
   @override
@@ -66,8 +66,8 @@ class _$FarmService extends FarmService {
   }
 
   @override
-  Future<Response<FarmDetailsModel>> getFarmDetails(String farmId) {
-    final Uri $url = Uri.parse('/farm/{farmId}');
+  Future<Response<FarmDetailsModel>> getFarmDetails(String farmerId) {
+    final Uri $url = Uri.parse('/farm/${farmerId}');
     final Request $request = Request(
       'GET',
       $url,

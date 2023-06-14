@@ -25,12 +25,12 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
   void initState() {
     super.initState();
 
-    // _loadProfileData(context);
+    _loadProfileData(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.read(farmerBiodataControllerProvider);
+    final state = ref.watch(farmerBiodataControllerProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -51,8 +51,8 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
           styleType: Style.bgFillGreenA700,
         ),
         body: state.when(
-          data: (data) {
-            final BiodataModel? biodataModel = data;
+          data: (biodataModel) {
+            if (biodataModel == null) return SizedBox.shrink();
 
             return SizedBox(
               width: size.width,
@@ -89,7 +89,7 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
                         ),
                       ),
                       CustomImageView(
-                        url: biodataModel?.data.photo,
+                        url: biodataModel.data.photo,
                         height: getVerticalSize(250),
                         width: getHorizontalSize(336),
                         margin: getMargin(top: 20),
@@ -106,8 +106,8 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
                       Padding(
                         padding: getPadding(top: 11),
                         child: Text(
-                          // '${biodataModel?.data.firstName} ${biodataModel?.data.lastName} ${biodataModel?.data.otherName}',
-                          'Ahmad Abiola Amaka',
+                          '${biodataModel.data.firstName} ${biodataModel.data.lastName} ${biodataModel.data.otherName}',
+                          // 'Ahmad Abiola Amaka',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterRegular14Gray900,
@@ -334,7 +334,7 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
                         width: double.maxFinite,
                         child: GestureDetector(
                           onTap: () {
-                            onTapViewfarm(context);
+                            onTapViewfarm(context, biodataModel?.data.id);
                           },
                           child: Container(
                             margin: getMargin(top: 32),
@@ -394,7 +394,7 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
     context.pushNamed(AppRoutes.viewFarmerBiodataScreen, arguments: farmerId);
   }
 
-  onTapViewfarm(BuildContext context) {
-    context.pushNamed(AppRoutes.viewFarmsScreen);
+  void onTapViewfarm(BuildContext context, String farmId) {
+    context.pushNamed(AppRoutes.viewFarmsScreen, arguments: farmId);
   }
 }

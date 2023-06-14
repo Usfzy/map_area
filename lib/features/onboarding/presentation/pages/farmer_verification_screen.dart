@@ -21,8 +21,7 @@ class FarmerVerificationScreen extends StatelessWidget {
     'Item Three',
   ];
 
-  final identityNumberController =
-      TextEditingController(text: '6462953135320568');
+  final identityNumberController = TextEditingController(text: '6462953135320568');
   final _formKey = GlobalKey<FormState>();
 
   String identityType = 'BVN';
@@ -185,21 +184,23 @@ class FarmerVerificationScreen extends StatelessWidget {
                   vSpace(16.0),
                   Consumer(
                     builder: (_, WidgetRef ref, __) {
-                      final result =
-                          ref.watch(farmerVerificationControllerProvider);
+                      final result = ref.watch(farmerVerificationControllerProvider);
 
                       return result.when(
                         data: (data) {
                           if (data != null) {
-                            _showFarmerVerificationOneDialog(context, data);
+                            _showFarmerVerificationOneDialog(
+                              context,
+                              data,
+                              identityType,
+                              identityNumberController.text.trim(),
+                            );
                           }
 
                           return _verfiyIdentityButton(ref);
                         },
                         error: (error, stackTrace) {
-                          showCustomSnackBarAfterFrame(
-                              context, 'Error getting data',
-                              isError: true);
+                          showCustomSnackBarAfterFrame(context, 'Error getting data', isError: true);
 
                           return _verfiyIdentityButton(ref);
                         },
@@ -239,9 +240,11 @@ class FarmerVerificationScreen extends StatelessWidget {
   void _showFarmerVerificationOneDialog(
     BuildContext context,
     VerifyModel verifyModel,
+    String idType,
+    String idNumber,
   ) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      showFarmerVerificationOneDialog(context, verifyModel);
+      showFarmerVerificationOneDialog(context, verifyModel, idType, idNumber);
     });
   }
 }

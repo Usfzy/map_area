@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nirsalfo/core/app_export.dart';
+import 'package:nirsalfo/core/utils/extensions.dart';
+import 'package:nirsalfo/core/utils/utils.dart';
+import 'package:nirsalfo/features/farms/widgets/farm_item_widget.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_image.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_title.dart';
 import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
+import 'package:nirsalfo/widgets/custom_error_widget.dart';
+import 'package:nirsalfo/widgets/custom_progress_indicator.dart';
 
-class ViewFarmsListScreen extends StatelessWidget {
+import '../controllers/farm_details_controller.dart';
+
+class ViewFarmsListScreen extends ConsumerStatefulWidget {
+  final String farmId;
+
+  const ViewFarmsListScreen({required this.farmId});
+
+  @override
+  ConsumerState<ViewFarmsListScreen> createState() => _ViewFarmsListScreenState();
+}
+
+class _ViewFarmsListScreenState extends ConsumerState<ViewFarmsListScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    _loadData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(farmListControllerProvider);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
@@ -22,158 +48,74 @@ class ViewFarmsListScreen extends StatelessWidget {
           title: AppbarTitle(text: 'View Farms', margin: getMargin(left: 8)),
           styleType: Style.bgFillGreenA700,
         ),
-        body: SizedBox(
-          width: size.width,
-          child: SingleChildScrollView(
-            padding: getPadding(top: 37),
-            child: Padding(
-              padding: getPadding(left: 20, right: 19, bottom: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: getPadding(left: 1),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'View Farms',
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtInterSemiBold28,
-                        ),
-                        Padding(
-                          padding: getPadding(top: 9),
-                          child: Text(
-                            'Ahmed Kunle Obiora',
+        body: state.when(
+          data: (farmDetailsModel) {
+            if (farmDetailsModel == null) return SizedBox.shrink();
+
+            return SizedBox(
+              width: size.width,
+              child: Padding(
+                padding: getPadding(left: 20, right: 19, bottom: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: getPadding(left: 1),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'View Farms',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
-                            style: AppStyle.txtInterRegular20,
+                            style: AppStyle.txtInterSemiBold28,
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      onTapRowahmedtuberfa(context);
-                    },
-                    child: Container(
-                      margin: getMargin(top: 21),
-                      padding: getPadding(all: 8),
-                      decoration: AppDecoration.fillGreen50.copyWith(
-                        borderRadius: BorderRadiusStyle.roundedBorder4,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
                           Padding(
-                            padding: getPadding(top: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Ahmed Tuber Farm',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtInterMedium18,
-                                ),
-                                Padding(
-                                  padding: getPadding(
-                                    top: 6,
-                                  ),
-                                  child: Text(
-                                    '2 Hectares Yam Plantation',
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtInterRegular12,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
-                            height: getVerticalSize(44),
-                            width: getHorizontalSize(35),
-                            margin: getMargin(
-                              top: 1,
-                              bottom: 1,
+                            padding: getPadding(top: 9),
+                            child: Text(
+                              '${farmDetailsModel.data.farmer.firstName} ${farmDetailsModel.data.farmer.lastName} ${farmDetailsModel.data.farmer.otherName}',
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: AppStyle.txtInterRegular20,
                             ),
                           )
                         ],
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      onTapRowahmedtuberfa1(context);
-                    },
-                    child: Container(
-                      margin: getMargin(top: 6),
-                      padding: getPadding(all: 8),
-                      decoration: AppDecoration.fillGreen50.copyWith(
-                        borderRadius: BorderRadiusStyle.roundedBorder4,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: getPadding(top: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Ahmed Grains',
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtInterMedium18,
-                                ),
-                                Padding(
-                                  padding: getPadding(
-                                    top: 6,
-                                  ),
-                                  child: Text(
-                                    '2 Hectares Wheat Plantation',
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtInterRegular12,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
-                            height: getVerticalSize(44),
-                            width: getHorizontalSize(35),
-                            margin: getMargin(
-                              top: 1,
-                              bottom: 1,
-                            ),
-                          )
-                        ],
+                    vSpace(),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: farmDetailsModel.data.farms.length,
+                        itemBuilder: (context, index) {
+                          return FarmItemWidget(
+                            farmerName:
+                                '${farmDetailsModel.data.farmer.firstName} ${farmDetailsModel.data.farmer.lastName} ${farmDetailsModel.data.farmer.otherName}',
+                            farm: farmDetailsModel.data.farms[index],
+                          );
+                        },
                       ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
+          error: (error, stackTrace) => CustomErrorWidget(error: error.toString()),
+          loading: () => CustomProgressIndicator(),
         ),
       ),
     );
   }
 
-  onTapRowahmedtuberfa(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.viewSingleFarmScreen);
+  void _loadData(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(farmListControllerProvider.notifier).getFarmDetails(widget.farmId);
+    });
   }
 
-  onTapRowahmedtuberfa1(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.viewSingleFarmScreen);
+  onTapRowahmedtuberfa(BuildContext context) {
+    context.pushNamed(AppRoutes.viewSingleFarmScreen);
   }
 }

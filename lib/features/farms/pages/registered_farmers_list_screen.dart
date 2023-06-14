@@ -56,6 +56,7 @@ class _RegisteredFarmersScreenState extends ConsumerState<RegisteredFarmersScree
             final state = ref.watch(farmersListControllerProvider);
             return state.when(
               data: (data) {
+                if (data == null) return SizedBox.shrink();
                 final FarmerModel farmerModel = data;
 
                 return Form(
@@ -81,7 +82,7 @@ class _RegisteredFarmersScreenState extends ConsumerState<RegisteredFarmersScree
                               Padding(
                                 padding: getPadding(top: 6),
                                 child: Text(
-                                  '237 record of all farmers',
+                                  '${farmerModel.data.first.data.length} record of all farmers',
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtInterRegular20,
@@ -130,7 +131,7 @@ class _RegisteredFarmersScreenState extends ConsumerState<RegisteredFarmersScree
                                 return FarmersItemWidget(
                                   farmerModel: farmerModel.data.first.data[index],
                                   onTapColumnprofilepi: () {
-                                    onTapColumnprofilepi(context,farmerModel.data.first.data[index].datumId);
+                                    onTapColumnprofilepi(context, farmerModel.data.first.data[index].datumId);
                                   },
                                 );
                               },
@@ -157,9 +158,9 @@ class _RegisteredFarmersScreenState extends ConsumerState<RegisteredFarmersScree
     });
   }
 
-  onTapColumnprofilepi(BuildContext context,String farmerId) {
+  onTapColumnprofilepi(BuildContext context, String farmerId) {
     if (farmerId.isEmpty) return;
-    
+
     context.pushNamed(AppRoutes.farmerProfileScreen, arguments: farmerId);
   }
 }

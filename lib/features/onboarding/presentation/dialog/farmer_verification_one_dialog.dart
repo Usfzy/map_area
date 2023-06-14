@@ -7,11 +7,13 @@ import 'package:nirsalfo/widgets/custom_button.dart';
 Future<void> showFarmerVerificationOneDialog(
   BuildContext context,
   VerifyModel verifyModel,
+  String idType,
+  String idNumber,
 ) {
   return showDialog(
     context: context,
     builder: (_) => AlertDialog(
-      content: FarmerVerificationOneDialog(verifyModel),
+      content: FarmerVerificationOneDialog(verifyModel,idType,idNumber),
       backgroundColor: Colors.transparent,
       contentPadding: EdgeInsets.zero,
       insetPadding: EdgeInsets.only(left: 0),
@@ -21,7 +23,9 @@ Future<void> showFarmerVerificationOneDialog(
 
 class FarmerVerificationOneDialog extends StatelessWidget {
   final VerifyModel verifyModel;
-  const FarmerVerificationOneDialog(this.verifyModel);
+  final String idType;
+  final String idNumber;
+  const FarmerVerificationOneDialog(this.verifyModel,this.idType,this.idNumber);
 
   @override
   Widget build(BuildContext context) {
@@ -105,11 +109,18 @@ class FarmerVerificationOneDialog extends StatelessWidget {
     );
   }
 
-  onTapCancel(BuildContext context) {
+  void onTapCancel(BuildContext context) {
     context.pop();
   }
 
-  onTapProceed(BuildContext context) {
-    context.pushReplacementNamed(AppRoutes.farmerBiodataScreen, arguments: verifyModel);
+  void onTapProceed(BuildContext context) {
+    context.pushReplacementNamed(
+      AppRoutes.farmerBiodataScreen,
+      arguments: {
+        'verify_model': verifyModel,
+        'id_type': idType,
+        'id_number': idNumber,
+      },
+    );
   }
 }
