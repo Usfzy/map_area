@@ -10,7 +10,7 @@ import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
 import 'package:nirsalfo/widgets/custom_error_widget.dart';
 import 'package:nirsalfo/widgets/custom_progress_indicator.dart';
 
-import '../controllers/farm_details_controller.dart';
+import '../controllers/farm_list_controller.dart';
 
 class ViewFarmsListScreen extends ConsumerStatefulWidget {
   final String farmId;
@@ -111,7 +111,7 @@ class _ViewFarmsListScreenState extends ConsumerState<ViewFarmsListScreen> {
 
   void _loadData(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(farmListControllerProvider.notifier).getFarmDetails(widget.farmId);
+      ref.read(farmListControllerProvider.notifier).getFarmList(widget.farmId);
     });
   }
 

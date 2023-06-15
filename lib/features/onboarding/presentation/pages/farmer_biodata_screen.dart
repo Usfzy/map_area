@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nirsalfo/core/app_export.dart';
-import 'package:nirsalfo/core/model/general_resp_model.dart';
 import 'package:nirsalfo/features/farms/data/model/register_farmer_model.dart';
 import 'package:nirsalfo/features/onboarding/controller/upload_image_controller.dart';
 import 'package:nirsalfo/features/onboarding/data/model/verify_model.dart';

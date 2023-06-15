@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nirsalfo/core/model/general_resp_model.dart';
 import 'package:nirsalfo/features/farms/data/model/register_farmer_model.dart';
 import 'package:nirsalfo/features/farms/services/farm_service.dart';
 import 'package:nirsalfo/features/onboarding/data/model/biodata_model.dart';

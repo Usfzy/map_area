@@ -4,15 +4,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nirsalfo/core/utils/extensions.dart';
 import 'package:nirsalfo/core/utils/map_utils.dart';
+import 'package:nirsalfo/core/utils/utils.dart';
 
 import '../../../core/utils/size_utils.dart';
 import '../../../widgets/custom_button.dart';
+import '../data/model/add_farm_model.dart';
+import '../data/model/farm_details_model.dart' show Farm;
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({
-    super.key,
-  });
+  final Farm? farm;
+  const MapWidget({super.key, this.farm});
 
   @override
   State<MapWidget> createState() => _MapWidgetState();
@@ -35,8 +38,6 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   void initState() {
     super.initState();
-
-    _gotoCurrentLocation();
   }
 
   @override
@@ -55,8 +56,7 @@ class _MapWidgetState extends State<MapWidget> {
               onTap: _onGoogleMapTap,
               markers: _markers,
               polygons: _polygons,
-              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}
-                ..add(
+              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}..add(
                   Factory<PanGestureRecognizer>(
                     () => PanGestureRecognizer(),
                   ),
@@ -71,11 +71,26 @@ class _MapWidgetState extends State<MapWidget> {
             fontStyle: ButtonFontStyle.interRegular14,
             onTap: _onResetTap,
           ),
-          CustomButton(
-            height: getVerticalSize(44),
-            text: 'Save',
-            margin: getMargin(top: 16),
-            onTap: _onSaveTap,
+          Row(
+            children: [
+              Expanded(
+                child: CustomButton(
+                  height: getVerticalSize(44),
+                  text: 'Save',
+                  margin: getMargin(top: 16, right: 8),
+                  onTap: _onSaveTap,
+                ),
+              ),
+              hSpace(16),
+              Expanded(
+                child: CustomButton(
+                  height: getVerticalSize(44),
+                  text: 'Save & Exit',
+                  margin: getMargin(top: 16, left: 8),
+                  onTap: _onSaveExitTap,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -84,6 +99,29 @@ class _MapWidgetState extends State<MapWidget> {
 
   void _onMapCreated(GoogleMapController controller) async {
     _googleMapController.complete(controller);
+
+    _loadFarmPolygons();
+    _gotoCurrentLocation();
+  }
+
+  void _loadFarmPolygons() {
+    if (widget.farm != null) {
+      for (var e in widget.farm!.map!) {
+          _polygons.add(
+            Polygon(
+              polygonId: PolygonId(e.polygonId!),
+              strokeWidth: 2,
+              strokeColor: Colors.yellow,
+              fillColor: Colors.yellow.withOpacity(0.15),
+               points: e.points!.map((e) {
+                return LatLng(double.parse(e.lat!), double.parse(e.long!));
+              }).toList(),
+            ),
+          );
+        }
+
+      setState(() {});
+    }
   }
 
   void _onGoogleMapTap(LatLng point) {
@@ -140,7 +178,21 @@ class _MapWidgetState extends State<MapWidget> {
     polygonLatLngs.clear();
 
     counter++;
+
     setState(() {});
+  }
+
+  void _onSaveExitTap() {
+    final mapElements = _polygons
+        .map(
+          (element) => AddMapElement(
+            polygonId: element.polygonId.value,
+            points: element.points.map((e) => Point(lat: '${e.latitude}', long: '${e.longitude}')).toList(),
+          ),
+        )
+        .toList();
+
+    context.pop(mapElements);
   }
 
   void _onResetTap() {

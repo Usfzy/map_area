@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nirsalfo/core/app_export.dart';
 import 'package:nirsalfo/core/utils/extensions.dart';
 import 'package:nirsalfo/features/onboarding/controller/farmer_biodata_controller.dart';
-import 'package:nirsalfo/features/onboarding/data/model/biodata_model.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_image.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_title.dart';
 import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
@@ -13,6 +12,7 @@ import 'package:nirsalfo/widgets/custom_error_widget.dart';
 import 'package:nirsalfo/widgets/custom_progress_indicator.dart';
 import 'package:nirsalfo/widgets/custom_text_form_field.dart';
 
+import '../../../../core/utils/utils.dart';
 import '../../controller/upload_image_controller.dart';
 
 // ignore_for_file: must_be_immutable
@@ -110,12 +110,24 @@ class _ViewFarmerBiodataScreenState extends ConsumerState<ViewFarmerBiodataScree
                             builder: (_, WidgetRef ref, __) {
                               final state = ref.watch(uploadImageControllerProvider);
                               return state.when(
-                                data: (data) => CustomImageView(
-                                  url: biodataModel?.data.photo,
-                                  height: getVerticalSize(250),
-                                  width: getHorizontalSize(336),
-                                  margin: getMargin(top: 19),
-                                ),
+                                data: (data) {
+                                  String imageUri = biodataModel?.data.photo;
+                                  if (data != null) {
+                                    imageUri = data.data;
+
+                                    showCustomSnackBarAfterFrame(
+                                      context,
+                                      data.data == null ? 'Error uploading file' : 'Image updated successfully',
+                                    );
+                                  }
+
+                                  return CustomImageView(
+                                    url: imageUri,
+                                    height: getVerticalSize(250),
+                                    width: getHorizontalSize(336),
+                                    margin: getMargin(top: 19),
+                                  );
+                                },
                                 error: (error, stackTrace) => CustomErrorWidget(error: error.toString()),
                                 loading: () => CustomProgressIndicator(),
                               );

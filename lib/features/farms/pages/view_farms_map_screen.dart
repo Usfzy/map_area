@@ -8,14 +8,19 @@ import 'package:nirsalfo/widgets/app_bar/appbar_title.dart';
 import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
 import 'package:nirsalfo/widgets/custom_text_form_field.dart';
 
-// ignore_for_file: must_be_immutable
+import '../data/model/farm_details_model.dart' show Farm;
+
 class ViewFarmsMapScreen extends StatelessWidget {
   final farmAddressoneController = TextEditingController();
-
-  Completer<GoogleMapController> googleMapController = Completer();
+  final googleMapController = Completer<GoogleMapController>;
 
   @override
   Widget build(BuildContext context) {
+     final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final String farmerName = arguments['farmer_name'];
+    final Farm? farm = arguments['farm'];
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
@@ -53,7 +58,7 @@ class ViewFarmsMapScreen extends StatelessWidget {
                     Padding(
                       padding: getPadding(top: 9),
                       child: Text(
-                        'Ahmed Kunle Obiora',
+                        farmerName,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtInterRegular20,
@@ -83,25 +88,25 @@ class ViewFarmsMapScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                MapWidget(),
-                Padding(
-                  padding: getPadding(top: 30),
-                  child: Text(
-                    'Area',
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtInterMedium14,
-                  ),
-                ),
-                Padding(
-                  padding: getPadding(top: 11),
-                  child: Text(
-                    '400m2',
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtInterRegular14Gray900,
-                  ),
-                )
+                MapWidget(farm: farm),
+                // Padding(
+                //   padding: getPadding(top: 30),
+                //   child: Text(
+                //     'Area',
+                //     overflow: TextOverflow.ellipsis,
+                //     textAlign: TextAlign.left,
+                //     style: AppStyle.txtInterMedium14,
+                //   ),
+                // ),
+                // Padding(
+                //   padding: getPadding(top: 11),
+                //   child: Text(
+                //     '400m2',
+                //     overflow: TextOverflow.ellipsis,
+                //     textAlign: TextAlign.left,
+                //     style: AppStyle.txtInterRegular14Gray900,
+                //   ),
+                // )
               ],
             ),
           ),

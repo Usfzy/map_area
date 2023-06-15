@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 extension NavigatorExt on BuildContext {
-  void pushNamed(String route, {Object? arguments}) =>
+  Future pushNamed(String route, {Object? arguments}) =>
       Navigator.of(this).pushNamed(route, arguments: arguments);
 
-  void pushReplacementNamed(
+  Future pushReplacementNamed(
     String route, {
     Object? result,
     Object? arguments,

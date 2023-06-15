@@ -14,14 +14,15 @@ class FarmListController extends StateNotifier<AsyncValue> {
 
   FarmListController({required this.farmerRepository}) : super(AsyncData(null));
 
-  Future<void> getFarmDetails(String farmId) async {
+  Future<void> getFarmList(String farmId) async {
     state = AsyncValue.loading();
 
     try {
-      final result = await farmerRepository.getFarmDetails(farmId);
+      final result = await farmerRepository.getFarmList(farmId);
 
       state = AsyncValue.data(result);
     } catch (e) {
+      print(e.toString());
       state = AsyncValue.error(parseError(e), StackTrace.current);
     }
   }

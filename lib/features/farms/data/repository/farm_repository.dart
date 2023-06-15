@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nirsalfo/core/model/general_resp_model.dart';
+import 'package:nirsalfo/features/farms/data/model/add_farm_model.dart';
 import 'package:nirsalfo/features/farms/data/model/farmer_model.dart';
 import 'package:nirsalfo/features/farms/services/farm_service.dart';
 
@@ -23,8 +25,15 @@ class FarmRepository {
     throw ServerException(message: response.error);
   }
 
-  Future<FarmDetailsModel> getFarmDetails(String farmId) async {
-    final response = await farmService.getFarmDetails(farmId);
+  Future<FarmDetailsModel> getFarmList(String farmId) async {
+    final response = await farmService.getFarmList(farmId);
+    if (response.isSuccessful) return response.body!;
+
+    throw ServerException(message: response.error);
+  }
+
+  Future<GeneralResponseModel> addFarm(String farmId, AddFarmModel addFarmModel) async {
+    final response = await farmService.addFarm(farmId, addFarmModel.toJson());
     if (response.isSuccessful) return response.body!;
 
     throw ServerException(message: response.error);

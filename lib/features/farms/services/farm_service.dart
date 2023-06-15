@@ -25,9 +25,7 @@ abstract class FarmService extends ChopperService {
   Future<Response<VerifyModel>> verifyFarmer(@Body() Map<String, dynamic> body);
 
   @Post(path: '/farmers/register')
-  Future<Response<RegisterFarmerModel>> registerFarmer(
-    @Body() Map<String, dynamic> body,
-  );
+  Future<Response<RegisterFarmerModel>> registerFarmer(@Body() Map<String, dynamic> body);
 
   @Get(path: '/farmers/{farmerId}')
   Future<Response<BiodataModel>> getFarmerBiodata(@Path() String farmerId);
@@ -36,5 +34,8 @@ abstract class FarmService extends ChopperService {
   Future<Response<FarmerModel>> getFarmersList();
 
   @Get(path: '/farm/{farmerId}')
-  Future<Response<FarmDetailsModel>> getFarmDetails(@Path() String farmerId);
+  Future<Response<FarmDetailsModel>> getFarmList(@Path() String farmerId);
+
+  @Post(path: '/farmers/{farmerId}/add-farm')
+  Future<Response<GeneralResponseModel>> addFarm(@Path() String farmerId, @Body() Map<String, dynamic> body);
 }

@@ -9,7 +9,6 @@ import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
 import 'package:nirsalfo/widgets/custom_error_widget.dart';
 import 'package:nirsalfo/widgets/custom_progress_indicator.dart';
 
-import '../../data/model/biodata_model.dart';
 
 class FarmerProfileScreen extends ConsumerStatefulWidget {
   final String farmerId;
@@ -254,7 +253,11 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
                         width: double.maxFinite,
                         child: GestureDetector(
                           onTap: () {
-                            onTapAddfarm(context);
+                            onTapAddfarm(
+                              context,
+                              biodataModel.data.id,
+                              '${biodataModel.data.firstName} ${biodataModel.data.lastName} ${biodataModel.data.otherName}',
+                            );
                           },
                           child: Container(
                             margin: getMargin(top: 33),
@@ -386,11 +389,17 @@ class _FarmerProfileScreenState extends ConsumerState<FarmerProfileScreen> {
     });
   }
 
-  onTapAddfarm(BuildContext context) {
-    context.pushNamed(AppRoutes.addFarmScreen);
+  void onTapAddfarm(BuildContext context, String farmerId, String farmerName) {
+    context.pushNamed(
+      AppRoutes.addFarmScreen,
+      arguments: {
+        'farmer_id': farmerId,
+        'farmer_name': farmerName,
+      },
+    );
   }
 
-  onTapViewbiodata(BuildContext context, String farmerId) {
+  void onTapViewbiodata(BuildContext context, String farmerId) {
     context.pushNamed(AppRoutes.viewFarmerBiodataScreen, arguments: farmerId);
   }
 

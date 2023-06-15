@@ -13,8 +13,8 @@ class ViewSingleFarmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    final Farm farm = arguments['farm'] as Farm;
-    final String farmerName = arguments['farmer_name'] as String;
+    final farm = arguments['farm'] as Farm;
+    final farmerName = arguments['farmer_name'] as String;
 
     return SafeArea(
       child: Scaffold(
@@ -126,7 +126,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              farm.farmTitle,
+                              '${farm.farmTitle}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -148,7 +148,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 16,
                             ),
                             child: Text(
-                              farm.farmAddress,
+                              '${farm.farmAddress}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -214,7 +214,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              farm.plantation,
+                              '${farm.plantation}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -236,7 +236,7 @@ class ViewSingleFarmScreen extends StatelessWidget {
                               top: 13,
                             ),
                             child: Text(
-                              farm.landOwnership,
+                              '${farm.landOwnership}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtInterRegular14Black90001,
@@ -254,17 +254,39 @@ class ViewSingleFarmScreen extends StatelessWidget {
                             ),
                           ),
                           vSpace(16),
-                          Column(
-                            children: [
-                              ...farm.map.map(
-                                (e) => Text(
-                                  'Point Lat ${e.lat}° Lon ${e.long}° W',
-                                  maxLines: null,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtInterRegular14Black90001,
-                                ),
-                              ),
-                            ],
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: farm.map?.length,
+                            itemBuilder: (context, index) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: farm.map?[index].points?.length,
+                                itemBuilder: (context, index) {
+                                  final point = farm.map?[index].points?[index];
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Point: '),
+                                      Text(
+                                        'Lat ${point?.lat}°',
+                                        maxLines: null,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtInterRegular12,
+                                      ),
+                                      Text(
+                                        'Lon ${point?.long}°',
+                                        maxLines: null,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtInterRegular12,
+                                      ),
+                                      vSpace(16),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
                           ),
                           vSpace(),
                           CustomButton(
@@ -278,7 +300,13 @@ class ViewSingleFarmScreen extends StatelessWidget {
                             variant: ButtonVariant.tertiary,
                             fontStyle: ButtonFontStyle.interRegular14,
                             onTap: () {
-                              context.pushNamed(AppRoutes.viewFarmsMapScreen);
+                              context.pushNamed(
+                                AppRoutes.viewFarmsMapScreen,
+                                arguments: {
+                                  'farm': farm,
+                                  'farmer_name': farmerName,
+                                },
+                              );
                             },
                           ),
                         ],

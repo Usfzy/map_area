@@ -48,9 +48,9 @@ class AppRoutes {
       case viewSingleFarmScreen:
         return MaterialPageRoute(builder: (context) => ViewSingleFarmScreen(), settings: settings);
       case addFarmScreen:
-        return MaterialPageRoute(builder: (context) => AddFarmScreen());
+        return MaterialPageRoute(builder: (context) => AddFarmScreen(), settings: settings);
       case viewFarmsMapScreen:
-        return MaterialPageRoute(builder: (context) => ViewFarmsMapScreen());
+        return MaterialPageRoute(builder: (context) => ViewFarmsMapScreen(),settings: settings);
       case registeredFarmersScreen:
         return MaterialPageRoute(builder: (context) => RegisteredFarmersScreen());
 

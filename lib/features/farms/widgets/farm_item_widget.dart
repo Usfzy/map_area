@@ -30,7 +30,7 @@ class FarmItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    farm.farmTitle,
+                    '${farm.farmTitle}',
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtInterMedium18,
@@ -65,9 +65,12 @@ class FarmItemWidget extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    context.pushNamed(AppRoutes.viewSingleFarmScreen, arguments: {
-      'farm': farm,
-      'farmer_name': farmerName,
-    });
+    context.pushNamed(
+      AppRoutes.viewSingleFarmScreen,
+      arguments: {
+        'farm': farm,
+        'farmer_name': farmerName,
+      },
+    );
   }
 }
