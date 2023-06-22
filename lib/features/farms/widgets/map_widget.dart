@@ -105,23 +105,23 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   void _loadFarmPolygons() {
-    if (widget.farm != null) {
-      for (var e in widget.farm!.map!) {
-          _polygons.add(
-            Polygon(
-              polygonId: PolygonId(e.polygonId!),
-              strokeWidth: 2,
-              strokeColor: Colors.yellow,
-              fillColor: Colors.yellow.withOpacity(0.15),
-               points: e.points!.map((e) {
-                return LatLng(double.parse(e.lat!), double.parse(e.long!));
-              }).toList(),
-            ),
-          );
-        }
+    if (widget.farm == null || widget.farm?.map == null) return;
 
-      setState(() {});
+    for (var e in widget.farm!.map!) {
+      _polygons.add(
+        Polygon(
+          polygonId: PolygonId(e.polygonId!),
+          strokeWidth: 2,
+          strokeColor: Colors.yellow,
+          fillColor: Colors.yellow.withOpacity(0.15),
+          points: e.points!.map((e) {
+            return LatLng(double.parse(e.lat!), double.parse(e.long!));
+          }).toList(),
+        ),
+      );
     }
+
+    setState(() {});
   }
 
   void _onGoogleMapTap(LatLng point) {
