@@ -4,9 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:nirsalfo/core/utils/extensions.dart';
 import 'package:nirsalfo/core/utils/map_utils.dart';
 import 'package:nirsalfo/core/utils/utils.dart';
+import 'package:nirsalfo/features/farms/widgets/places_auto_complete_text_field.dart';
 
 import '../../../core/utils/size_utils.dart';
 import '../../../widgets/custom_button.dart';
@@ -47,6 +49,7 @@ class _MapWidgetState extends State<MapWidget> {
       margin: getMargin(top: 19),
       child: Column(
         children: [
+          PlacesAutoCompleteTextField(onPlacesItemClick: _onPlacesItemClick),
           Expanded(
             child: GoogleMap(
               mapType: MapType.hybrid,
@@ -95,6 +98,15 @@ class _MapWidgetState extends State<MapWidget> {
         ],
       ),
     );
+  }
+
+  void _onPlacesItemClick(Prediction prediction) {
+    final lat = prediction.lat;
+    final lng = prediction.lng;
+
+    if (lat == null || lng == null) return;
+
+    _gotoLocation(double.parse(lat), double.parse(lng));
   }
 
   void _onMapCreated(GoogleMapController controller) async {

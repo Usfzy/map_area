@@ -5,7 +5,7 @@ class MapUtils {
   MapUtils._();
 
   static const double kZoomLevel = 10.151926040649414;
-  static const double kZoomLevelSearch = 12.151926040649414;
+  static const double kZoomLevelSearch = 16.151926040649414;
   static const double kTilt = 59.440717697143555;
   static const double kBearing = 192.8334901395799;
 

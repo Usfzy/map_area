@@ -31,6 +31,8 @@ dependencies:
   shared_preferences: ^2.0.18
   # Flutter plugin for selecting images from the Android and iOS image library, and taking new pictures with the camera.
   image_picker: ^0.8.8
+  # adding places search
+  google_places_flutter: ^2.0.5
 
 dev_dependencies:
   flutter_test:

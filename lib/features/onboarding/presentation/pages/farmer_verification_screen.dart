@@ -14,7 +14,12 @@ import 'package:nirsalfo/widgets/custom_text_form_field.dart';
 import '../../../../core/utils/utils.dart';
 import '../dialog/farmer_verification_one_dialog.dart';
 
-class FarmerVerificationScreen extends StatelessWidget {
+class FarmerVerificationScreen extends StatefulWidget {
+  @override
+  State<FarmerVerificationScreen> createState() => _FarmerVerificationScreenState();
+}
+
+class _FarmerVerificationScreenState extends State<FarmerVerificationScreen> {
   final List<String> dropdownItemList = [
     'Item One',
     'Item Two',
@@ -22,6 +27,7 @@ class FarmerVerificationScreen extends StatelessWidget {
   ];
 
   final identityNumberController = TextEditingController(text: '6462953135320568');
+
   final _formKey = GlobalKey<FormState>();
 
   String identityType = 'BVN';

@@ -6,7 +6,6 @@ import 'package:nirsalfo/features/farms/widgets/map_widget.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_image.dart';
 import 'package:nirsalfo/widgets/app_bar/appbar_title.dart';
 import 'package:nirsalfo/widgets/app_bar/custom_app_bar.dart';
-import 'package:nirsalfo/widgets/custom_text_form_field.dart';
 
 import '../data/model/farm_details_model.dart' show Farm;
 
@@ -66,28 +65,7 @@ class ViewFarmsMapScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Padding(
-                  padding: getPadding(top: 28),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Farm Address',
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtInterRegular14,
-                      ),
-                      CustomTextFormField(
-                        autofocus: false,
-                        controller: farmAddressoneController,
-                        hintText: '12 Ezekiel Street, Ikeja',
-                        margin: getMargin(top: 10),
-                        textInputAction: TextInputAction.done,
-                      )
-                    ],
-                  ),
-                ),
+               
                 MapWidget(farm: farm),
                 // Padding(
                 //   padding: getPadding(top: 30),
