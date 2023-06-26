@@ -116,7 +116,8 @@ class _FarmerBiodataScreenState extends ConsumerState<FarmerBiodataScreen> {
                           }
 
                           return CustomImageView(
-                            url: data.data,
+                            url: data?.data,
+                            imagePath: ImageConstant.imgProfilepix,
                             height: getVerticalSize(250),
                             width: getHorizontalSize(336),
                             margin: getMargin(top: 19),
