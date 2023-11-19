@@ -8,7 +8,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _setupLogging();
 
-
   runApp(
     ProviderScope(
       child: const MyApp(),
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Map',
       debugShowCheckedModeBanner: false,
       initialRoute: MapScreen.routeName,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
+      // onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }
