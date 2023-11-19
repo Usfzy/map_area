@@ -5,25 +5,23 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
-import 'package:nirsalfo/core/utils/extensions.dart';
-import 'package:nirsalfo/core/utils/map_utils.dart';
-import 'package:nirsalfo/core/utils/utils.dart';
-import 'package:nirsalfo/features/farms/widgets/places_auto_complete_text_field.dart';
+import 'package:nirsalfo/core/extensions.dart';
 
-import '../../../core/utils/size_utils.dart';
-import '../../../widgets/custom_button.dart';
-import '../data/model/add_farm_model.dart';
-import '../data/model/farm_details_model.dart' show Farm;
+import 'add_farm_model.dart';
+import 'core/map_utils.dart';
+import 'farm_details_model.dart' show Farm;
 
-class MapWidget extends StatefulWidget {
+class MapScreen extends StatefulWidget {
+  static const String routeName = 'map_screen';
+
   final Farm? farm;
-  const MapWidget({super.key, this.farm});
+  const MapScreen({super.key, this.farm});
 
   @override
-  State<MapWidget> createState() => _MapWidgetState();
+  State<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapWidgetState extends State<MapWidget> {
+class _MapScreenState extends State<MapScreen> {
   final _googleMapController = Completer<GoogleMapController>();
 
   final _markers = <Marker>{};
@@ -45,11 +43,11 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getVerticalSize(600),
-      margin: getMargin(top: 19),
+      height: 600,
+      margin: EdgeInsets.only(top: 19),
       child: Column(
         children: [
-          PlacesAutoCompleteTextField(onPlacesItemClick: _onPlacesItemClick),
+          // PlacesAutoCompleteTextField(onPlacesItemClick: _onPlacesItemClick),
           Expanded(
             child: GoogleMap(
               mapType: MapType.hybrid,
@@ -59,38 +57,31 @@ class _MapWidgetState extends State<MapWidget> {
               onTap: _onGoogleMapTap,
               markers: _markers,
               polygons: _polygons,
-              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}..add(
+              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}
+                ..add(
                   Factory<PanGestureRecognizer>(
                     () => PanGestureRecognizer(),
                   ),
                 ),
             ),
           ),
-          CustomButton(
-            height: getVerticalSize(44),
-            text: 'Reset ',
-            margin: getMargin(top: 19),
-            variant: ButtonVariant.tertiary,
-            fontStyle: ButtonFontStyle.interRegular14,
-            onTap: _onResetTap,
+          ElevatedButton(
+            onPressed: _onResetTap,
+            child: const Text('reset'),
           ),
           Row(
             children: [
               Expanded(
-                child: CustomButton(
-                  height: getVerticalSize(44),
-                  text: 'Save',
-                  margin: getMargin(top: 16, right: 8),
-                  onTap: _onSaveTap,
+                child: ElevatedButton(
+                  onPressed: _onSaveTap,
+                  child: const Text('save'),
                 ),
               ),
-              hSpace(16),
+              SizedBox(height: 16),
               Expanded(
-                child: CustomButton(
-                  height: getVerticalSize(44),
-                  text: 'Save & Exit',
-                  margin: getMargin(top: 16, left: 8),
-                  onTap: _onSaveExitTap,
+                child: ElevatedButton(
+                  onPressed: _onSaveExitTap,
+                  child: Text('Save Exit'),
                 ),
               ),
             ],
@@ -199,7 +190,9 @@ class _MapWidgetState extends State<MapWidget> {
         .map(
           (element) => AddMapElement(
             polygonId: element.polygonId.value,
-            points: element.points.map((e) => Point(lat: '${e.latitude}', long: '${e.longitude}')).toList(),
+            points: element.points
+                .map((e) => Point(lat: '${e.latitude}', long: '${e.longitude}'))
+                .toList(),
           ),
         )
         .toList();

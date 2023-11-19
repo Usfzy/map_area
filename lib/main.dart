@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:nirsalfo/routes/app_routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/providers/providers.dart';
+import 'map_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _setupLogging();
 
-  final sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(
     ProviderScope(
-      overrides: [
-        // override the previous value with the new object
-        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
-      ],
       child: const MyApp(),
     ),
   );
@@ -32,9 +25,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.standard,
       ),
-      title: 'NIRSAL',
+      title: 'Map',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.homeScreen,
+      initialRoute: MapScreen.routeName,
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
